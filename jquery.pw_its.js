@@ -68,6 +68,10 @@ jQuery(document).ready(function($) {
             }
             price += ' <span>（' + datestr + '時点）<br>\n※現在の価格は変更されている場合があります</span>';
             $('dd li:nth-child(4)', copythis).html(price);
+            $(copythis).attr({
+                'data-ad-name' : res.price + '円:' + name,
+                'data-ad-kind' : 'its'
+                });
         });
     });
 });
