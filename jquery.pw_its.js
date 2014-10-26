@@ -8,17 +8,19 @@ jQuery(document).ready(function($) {
     // itunes storeリンクを適当に更新
     //--------------------------------------------------------------------
     $('.its').each(function() {
-        var copythis = this;
-        var track_id = $(this).data('itsTrackid');
-        var api      = 'https://itunes.apple.com/lookup?callback=?';
-        var tid      = '&id=' + track_id;
-        var country  = '&country=JP';
-        var uri      = api + country + tid;
-        var today    = new Date();
-        var year     = today.getYear();
+        var copythis  = this;
+        var track_id  = $(this).data('itsTrackid');
+        var track_url = $(this).data('itsTrackurl');
+        var api       = 'https://itunes.apple.com/lookup?callback=?';
+        var tid       = '&id=' + track_id;
+        var country   = '&country=JP';
+        var uri       = api + country + tid;
+        var today     = new Date();
+        var year      = today.getYear();
         if(year < 1000){
             year += 1900;
         }
+        
         var datestr = year + '年' + (today.getMonth()+1) + '月' + today.getDate() + '日';
 
         $.getJSON(uri, function(json){
@@ -69,7 +71,8 @@ jQuery(document).ready(function($) {
             price += ' <span>（' + datestr + '時点）<br>\n※現在の価格は変更されている場合があります</span>';
             $('dd li:nth-child(4)', copythis).html(price);
             $(copythis).attr({
-                'data-ad-name' : res.price + '円:' + name,
+                'data-ad-name' : res.price + ':' + name,
+                //'data-ad-name' : res.price + ':' + track_url,
                 'data-ad-kind' : 'its'
                 });
         });
